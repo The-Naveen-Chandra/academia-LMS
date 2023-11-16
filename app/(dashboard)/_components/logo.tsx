@@ -5,8 +5,8 @@ export const Logo = () => {
   return (
     <Link href={"/"}>
       <div className="flex items-center justify-center">
-        <Image height={40} width={40} alt="Logo" src={"/logo.svg"} />
-        <div className="text-lg font-semibold italic ml-2">Academia</div>
+        <Image height={30} width={30} alt="Logo" src={"/logo.svg"} />
+        <div className="text-xl font-semibold ml-1">Academia</div>
       </div>
     </Link>
   );
