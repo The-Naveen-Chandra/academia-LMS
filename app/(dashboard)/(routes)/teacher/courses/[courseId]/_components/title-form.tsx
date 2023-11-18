@@ -6,6 +6,8 @@ import { useState } from "react";
 import { Pencil } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 import {
   Form,
@@ -33,7 +35,9 @@ const formSchema = z.object({
 export const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
-  const toggleEditing = () => setIsEditing((current) => !current);
+  const toggleEdit = () => setIsEditing((current) => !current);
+
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -43,14 +47,21 @@ export const TitleForm = ({ initialData, courseId }: TitleFormProps) => {
   const { isSubmitting, isValid } = form.formState;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    try {
+      await axios.patch(`/api/courses/${courseId}`, values);
+      toast.success("Course title updated.");
+      toggleEdit();
+      router.refresh();
+    } catch {
+      toast.error("Something went wrong");
+    }
   };
 
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
         Course title
-        <Button variant={"ghost"} onClick={toggleEditing}>
+        <Button variant={"ghost"} onClick={toggleEdit}>
           {isEditing ? (
             <>Cancel</>
           ) : (
