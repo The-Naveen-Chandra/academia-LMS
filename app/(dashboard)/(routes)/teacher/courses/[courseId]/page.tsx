@@ -10,7 +10,7 @@ import { ImageForm } from "./_components/image-form";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const { userId } = auth();
-
+  
   if (!userId) {
     return redirect("/");
   }
@@ -18,6 +18,12 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const course = await db.course.findUnique({
     where: {
       id: params.courseId,
+    },
+  });
+
+  const categories = await db.category.findMany({
+    orderBy: {
+      name: "asc",
     },
   });
 
@@ -54,8 +60,14 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
             <IconBadge icon={LayoutDashboard} />
             <h2 className="text-xl">Customize your course</h2>
           </div>
+
+          {/* Title form */}
           <TitleForm initialData={course} courseId={course.id} />
+
+          {/* Description form */}
           <DescriptionForm initialData={course} courseId={course.id} />
+
+          {/* Image form */}
           <ImageForm initialData={course} courseId={course.id} />
         </div>
       </div>
