@@ -10,7 +10,7 @@ import { ImageForm } from "./_components/image-form";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   const { userId } = auth();
-  
+
   if (!userId) {
     return redirect("/");
   }
@@ -26,6 +26,8 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
       name: "asc",
     },
   });
+
+  console.log(categories);
 
   if (!course) {
     return redirect("/");
