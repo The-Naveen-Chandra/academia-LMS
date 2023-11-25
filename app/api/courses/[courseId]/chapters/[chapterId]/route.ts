@@ -33,7 +33,7 @@ export async function PATCH(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const chapter = db.chapter.update({
+    const chapter = await db.chapter.update({
       where: {
         id: params.chapterId,
         courseId: params.courseId,
