@@ -1,9 +1,11 @@
 "use client";
 
 import { Ban, CheckCircleIcon, Trash } from "lucide-react";
-
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+
+import { ConfirmModal } from "@/components/modals/confirm-modal";
 
 interface ChapterActionsProps {
   disabled: boolean;
@@ -18,6 +20,10 @@ export const ChapterActions = ({
   chapterId,
   isPublished,
 }: ChapterActionsProps) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onDelete = () => {};
+
   return (
     <div className="flex items-center gap-x-2">
       <Button
@@ -34,10 +40,12 @@ export const ChapterActions = ({
         )}
         {isPublished ? "Published" : "Publish"}
       </Button>
-      <Button size={"sm"}>
-        <Trash className="h-4 w-4 mr-1" />
-        Delete
-      </Button>
+      <ConfirmModal onConfirm={() => {}}>
+        <Button size={"sm"}>
+          <Trash className="h-4 w-4 mr-1" />
+          Delete
+        </Button>
+      </ConfirmModal>
     </div>
   );
 };
