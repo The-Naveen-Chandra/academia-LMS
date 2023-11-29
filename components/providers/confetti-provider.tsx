@@ -16,7 +16,7 @@ export const ConfettiProvider = () => {
       className="pointer-events-none z-[100] w-full"
       numberOfPieces={500}
       recycle={false}
-      gravity={0.05}
+      gravity={0.03}
       onConfettiComplete={() => {
         confetti.onClose();
       }}
